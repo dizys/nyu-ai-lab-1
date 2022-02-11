@@ -13,7 +13,7 @@ NYU Artificial Intelligence Course Lab 1: Build a generic hill-climbing solver.
 The Python version has to at least have Protocol support, thus requiring Python 3.8+.
 
 ```bash
-module load module load python-3.8
+module load python-3.8
 ```
 
 If successful, the command `python3 --version` should give you:
