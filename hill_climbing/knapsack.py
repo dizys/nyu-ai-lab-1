@@ -1,6 +1,5 @@
 import json
 from typing import List, Tuple, Dict
-import math
 import random
 
 from .hill_climber import IHillClimberState, get_singular_value
@@ -12,7 +11,11 @@ class KnapsackHillClimberState(IHillClimberState):
         self.items = items
         self.target_value = target_value
         self.capacity = capacity
-        self.bag = bag
+        self.bag = bag.copy()
+        self.bag.sort()
+
+    def id(self) -> str:
+        return " ".join(self.bag)
 
     def items_value(self) -> int:
         value = 0
@@ -43,14 +46,12 @@ class KnapsackHillClimberState(IHillClimberState):
         for item in uncollected_items:
             new_bag = self.bag.copy()
             new_bag.append(item)
-            new_bag.sort()
             next_states.append(KnapsackHillClimberState(
                 self.items, self.target_value, self.capacity, new_bag))
         # remove item
         for item in self.bag:
             new_bag = self.bag.copy()
             new_bag.remove(item)
-            new_bag.sort()
             next_states.append(KnapsackHillClimberState(
                 self.items, self.target_value, self.capacity, new_bag))
         # swap one item
@@ -59,7 +60,6 @@ class KnapsackHillClimberState(IHillClimberState):
                 new_bag = self.bag.copy()
                 new_bag.remove(item)
                 new_bag.append(item2)
-                new_bag.sort()
                 next_states.append(KnapsackHillClimberState(
                     self.items, self.target_value, self.capacity, new_bag))
 

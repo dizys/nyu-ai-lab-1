@@ -15,6 +15,9 @@ class NQueensHillClimberState(IHillClimberState):
                     "Board size must be equal to the size of the board")
             self.board = board
 
+    def id(self) -> str:
+        return " ".join(str(i) for i in self.board)
+
     def value(self) -> int:
         return self.count_attacks()
 
