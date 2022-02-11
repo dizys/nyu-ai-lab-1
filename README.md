@@ -25,7 +25,10 @@ Python 3.8.6
 
 ### Script usages
 
-Use `hill_climb -h` command to see the usage:
+> The main entrance is a python script, not a binary. It is in Shebang style,
+> thus can be executed directly.
+
+Use `./hill_climb -h` command to see the usage:
 
 ```
 usage: hill_climb [-h] [-n N] [-k K] [--verbose] [--sideways SIDEWAYS]
