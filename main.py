@@ -1,0 +1,52 @@
+import argparse
+import json
+from typing import Tuple, Dict
+from hill_climbing import HillClimberSolver, NQueensHillClimberState, KnapsackHillClimberState, read_knapsack_input
+
+
+def main():
+    """
+    Main function
+    """
+    parser = argparse.ArgumentParser()
+    # for N queens problem
+    parser.add_argument(
+        "-n", help="N queens problem only: number of queens", type=int)
+    # for Knapsack problem
+    parser.add_argument(
+        "-k", help="Knapsack problem only: input json filename")
+    parser.add_argument("--verbose", help="verbose output",
+                        action="store_true", default=False)
+    parser.add_argument(
+        "--sideways", help="number of sideways moves allowed", default=0)
+    parser.add_argument(
+        "--restarts", help="number of random restarts allowed", default=0)
+    args = parser.parse_args()
+
+    verbose = args.verbose
+    sideways_limit = int(args.sideways)
+    if sideways_limit < 0:
+        sideways_limit = 0
+        print("Warning: sideways limit must be >= 0, setting to 0")
+    restarts = int(args.restarts)
+    if restarts < 0:
+        restarts = 0
+        print("Warning: restarts limit must be >= 0, setting to 0")
+
+    if args.n:
+        size = int(args.n)
+        state = NQueensHillClimberState(size)
+    elif args.k:
+        input_data = read_knapsack_input(args.k)
+        state = KnapsackHillClimberState(
+            input_data["items"], input_data["target_value"], input_data["capacity"], input_data["start_bag"])
+    else:
+        print("Error: must specify either -N or -KFile")
+        exit(1)
+
+    solver = HillClimberSolver(state, sideways_limit, restarts)
+    solver.solve(True, verbose)
+
+
+if __name__ == '__main__':
+    main()
