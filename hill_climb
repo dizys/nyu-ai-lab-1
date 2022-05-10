@@ -6,9 +6,9 @@
 by Ziyang Zeng (zz2960)
 Spring 2022
 """
+from sys import exit
 import argparse
 from hill_climbing import HillClimberSolver, NQueensHillClimberState, KnapsackHillClimberState, read_knapsack_input
-
 
 def main():
     """
